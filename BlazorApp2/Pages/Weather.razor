@@ -1,57 +1,67 @@
 ﻿@page "/weather"
-@inject HttpClient Http
 
-<PageTitle>Weather</PageTitle>
+<div class="pogoda-strona">
+    <h1 class="tytul">Pogoda w Krakowie</h1>
+    <p class="wstep">
+        Kraków leży w południowej Polsce i cechuje się klimatem umiarkowanym. Lata są ciepłe, a zimy mogą być mroźne i śnieżne.
+        Wiosną i jesienią pogoda bywa kapryśna, dlatego warto być przygotowanym na każdą ewentualność.
+    </p>
 
-<h1>Weather</h1>
+    <div class="pogoda-blok">
+        <h2>☀️ Aktualna pogoda</h2>
+        <ul>
+            <li><strong>Temperatura:</strong> 22°C</li>
+            <li><strong>Wilgotność:</strong> 55%</li>
+            <li><strong>Wiatr:</strong> 14 km/h</li>
+            <li><strong>Ciśnienie:</strong> 1012 hPa</li>
+            <li><strong>Zalecane ubranie:</strong> 👕 T-shirt i okulary przeciwsłoneczne</li>
+        </ul>
+    </div>
+</div>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-@code {
-    private WeatherForecast[]? forecasts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+<style>
+    .pogoda-strona {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #2c2c2c;
     }
 
-    public class WeatherForecast
-    {
-        public DateOnly Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    .tytul {
+        text-align: center;
+        font-size: 2.8em;
+        color: darkblue;
+        margin-bottom: 20px;
     }
-}
+
+    .wstep {
+        font-size: 1.1em;
+        text-align: justify;
+        margin-bottom: 30px;
+    }
+
+    .pogoda-blok {
+        background-color: #f0f8ff;
+        border-left: 6px solid #1e90ff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+        .pogoda-blok h2 {
+            margin-top: 0;
+            color: #1e90ff;
+        }
+
+        .pogoda-blok ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pogoda-blok li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+</style>
